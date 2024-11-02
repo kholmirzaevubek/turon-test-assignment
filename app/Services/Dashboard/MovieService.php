@@ -165,4 +165,17 @@ final class MovieService
             'message' => "deleted $movie_title"
         ]);
     }
+
+    public function getSpecificMovie(int $movie_id): ServiceResponseDTO
+    {
+        $movie = Movie::with('genre')->find($movie_id);
+
+        if (! $movie) {
+            return $this->responseService->failureResponse(message: 'movie not found');
+        }
+
+        return $this->responseService->successResponse(data: [
+            'movie' => $movie
+        ]);
+    }
 }

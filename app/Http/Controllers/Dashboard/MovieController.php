@@ -73,4 +73,15 @@ class MovieController extends Controller
 
         return redirect()->route('dashboard.movies.list-movies')->with($serviceResponse->data);
     }
+
+    public function getSpecificMovie(Request $request)
+    {
+        $serviceResponse = $this->movieService->getSpecificMovie(intval($request->route('movieId')));
+
+        if ($serviceResponse->error) {
+            return redirect()->route('dashboard.movies.list-movies')->withErrors(['message' => $serviceResponse->message]);
+        }
+
+        return view('dashboard.movies.specificmovie', $serviceResponse->data);
+    }
 }

@@ -78,7 +78,7 @@
                                                     </td>
 
                                                     <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                                                        <a href="#" class="text-indigo-600 hover:text-red-900">View</a>
+                                                        <a href="{{ route('dashboard.movies.specific-movie', $movie->id) }}" class="text-indigo-600 hover:text-red-900">View</a>
                                                         <a href="{{ route('dashboard.movies.update-movie', $movie->id) }}" class="text-yellow-600 hover:text-indigo-900">Update</a>
                                                         <a href="{{ route('dashboard.movies.delete-movie', $movie->id) }}" class="text-red-600 hover:text-red-900">Delete</a>
                                                     </td>

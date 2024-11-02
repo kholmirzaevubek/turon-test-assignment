@@ -17,6 +17,7 @@ Route::group(['prefix' => 'auth', 'as' => 'auth.', 'controller' => AuthControlle
 Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', 'middleware' => 'admin'], function () {
     Route::group(['prefix' => 'movies', 'as' => 'movies.', 'controller' => MovieController::class], function () {
         Route::get('/', 'listMovies')->name('list-movies');
+        Route::get('/{movieId}', 'getSpecificMovie')->name('specific-movie');
         Route::get('/create', 'showCreateFormMovie')->name('show-create-movie');
         Route::post('/create', 'createMovie')->name('create-movie');
         Route::get('/update/{movieId}', 'showUpdateFormMovie')->name('show-update-movie');
