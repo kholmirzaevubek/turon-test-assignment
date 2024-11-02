@@ -53,7 +53,7 @@
                     </form>
                         <div class="container mx-auto px-6 py-8">
                             <h3 class="text-gray-700 text-3xl font-medium">Movies</h3>
-                            <a href="#">add movies</a>
+                            <a href="{{ route('dashboard.movies.create-movie') }}">add movies</a>
 
                             <div class="flex flex-col mt-8">
                                 <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -67,12 +67,27 @@
                                                 <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
                                             </tr>
                                             </thead>
-
                                             <tbody class="bg-white">
+                                                @foreach ($movies as $movie)
 
+                                                <tr>
+                                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                                        <img src="{{ Storage::url($movie->upload_file) }}"  width="75" height="75">
+
+                                                        <div class="text-sm leading-5 text-dark-900">{{ $movie->title }}</div>
+                                                    </td>
+
+                                                    <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                                                        <a href="#" class="text-indigo-600 hover:text-red-900">View</a>
+                                                        <a href="#" class="text-yellow-600 hover:text-indigo-900">Update</a>
+                                                        <a href="#" class="text-red-600 hover:text-red-900">Delete</a>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
+                                    {{$movies->links('pagination::tailwind')}}
                                 </div>
                             </div>
                         </div>
