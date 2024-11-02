@@ -48,3 +48,7 @@ This project is built using Laravel 11 and Tailwind CSS.
 ```bash
     php artisan serve
 ```
+8.**Run Npm**:
+```bash
+    npm run dev
+```
