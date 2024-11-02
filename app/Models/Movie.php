@@ -12,7 +12,7 @@ class Movie extends Model
         'user_id',
         'description',
         'genre_id',
-        'upload',
+        'upload_file',
         'released_date',
         'trailer_link',
     ];
