@@ -21,5 +21,6 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', 'middleware' => 'ad
         Route::post('/create', 'createMovie')->name('create-movie');
         Route::get('/update/{movieId}', 'showUpdateFormMovie')->name('show-update-movie');
         Route::post('/update/{movieId}', 'updateMovie')->name('update-movie');
+        Route::get('/delete/{movieId}', 'deleteMovie')->name('delete-movie');
     });
 });

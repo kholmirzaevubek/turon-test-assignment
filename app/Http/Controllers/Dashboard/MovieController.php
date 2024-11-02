@@ -62,4 +62,15 @@ class MovieController extends Controller
 
         return redirect()->route('dashboard.movies.list-movies')->with($serviceResponse->data);
     }
+
+    public function deleteMovie(Request $request): RedirectResponse
+    {
+        $serviceResponse = $this->movieService->deleteMovie(intval($request->route('movieId')));
+
+        if ($serviceResponse->error) {
+            return redirect()->route('dashboard.movies.list-movies')->withErrors(['message' => $serviceResponse->message]);
+        }
+
+        return redirect()->route('dashboard.movies.list-movies')->with($serviceResponse->data);
+    }
 }

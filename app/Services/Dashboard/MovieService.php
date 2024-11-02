@@ -63,7 +63,7 @@ final class MovieService
     public function createMovie(CreateMovieDTO $dto): ServiceResponseDTO
     {
         // Upload the file using the upload service and specify the directory for movies
-        $uploadFile = $this->uploadService->upload($dto->upload_file, 'movies');
+        $upload_file = $this->uploadService->upload($dto->upload_file, 'movies');
 
         $movie = new Movie(); // Create a new instance of the Movie model
         $movie->user_id = $this->getUserId();
@@ -78,7 +78,7 @@ final class MovieService
             $movie->trailer_link = $this->convertToEmbedUrl($dto->trailer_link);
         }
         $movie->genre_id = $dto->genre_id;
-        $movie->upload_file = $uploadFile;
+        $movie->upload_file = $upload_file;
         $movie->save();
 
         // Return a successful response with a message indicating the movie has been created
@@ -147,6 +147,22 @@ final class MovieService
         return $this->responseService->successResponse(data: [
             'message' => "update $movie->title",
             'movie' => $movie
+        ]);
+    }
+
+    public function deleteMovie(int $movie_id): ServiceResponseDTO
+    {
+        $movie = Movie::find($movie_id);
+
+        if (! $movie) {
+            return $this->responseService->failureResponse(message: 'movie not found');
+        }
+        $movie_title = $movie->title;
+
+        $movie->delete();
+
+        return $this->responseService->successResponse(data: [
+            'message' => "deleted $movie_title"
         ]);
     }
 }
