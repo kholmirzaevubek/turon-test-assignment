@@ -11,36 +11,40 @@ This project is built using Laravel 11 and Tailwind CSS.
 
 ## Installation
 
-1. **Create an .env file**:
+1. **Install composer**:
+```bash
+    composer install
+```
+2. **Create an .env file**:
 ```bash
     cp .env.example .env
 ```
-2.**Create the database**:
+3.**Create the database**:
 ```bash
     php artisan migrate
 ```
 
-3.**Run the seeder**:
+4.**Run the seeder**:
 ```bash
     php artisan db:seed
 ```
 
-4.**Run storage link**:
+5.**Run storage link**:
 ```bash
     php artisan stroge:link
 ```
 
-5.**Install NPM dependencies**:
+6.**Install NPM dependencies**:
 ```bash
     npm install
 ```
     
-6.**Build Tailwind CSS**:
+7.**Build Tailwind CSS**:
 ```bash
     npm run build
 ```
     
-7.**Run the project**:
+8.**Run the project**:
 ```bash
     php artisan serve
 ```
