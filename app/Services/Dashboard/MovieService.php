@@ -13,7 +13,7 @@ use App\Services\UploadService;
 
 final class MovieService
 {
-    private const DEFAULT_PAGINATION_LIMIT = 1;
+    private const DEFAULT_PAGINATION_LIMIT = 15;
 
     public function __construct(
         private readonly ResponseService $responseService,
@@ -31,7 +31,7 @@ final class MovieService
         }
 
         // If a genre ID filter is provided, apply it to the query
-        if ($dto->genre_id !== null) {
+        if ($dto->genre_id !== 0) {
             $query->where('genre_id', '=', $dto->genre_id);
         }
         // Execute the query and paginate the results based on the default pagination limit
@@ -39,6 +39,7 @@ final class MovieService
 
          // Retrieve all genres from the database for display purposes
         $genres = Genre::all();
+
 
         // Return a successful response containing the paginated movies and all genres
         return $this->responseService->successResponse(data: [

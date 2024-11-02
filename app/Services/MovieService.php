@@ -10,7 +10,7 @@ use App\Models\Movie;
 final class MovieService
 {
 
-    private const DEFAULT_PAGINATION_LIMIT = 2;
+    private const DEFAULT_PAGINATION_LIMIT = 15;
 
     public function __construct(
         private readonly ResponseService $responseService
@@ -19,18 +19,19 @@ final class MovieService
 
     public function listMovies(ListMoviesDTO $dto): ServiceResponseDTO
     {
-        $query = Movie::with('genre');
+        $query = Movie::query();
 
         if ($dto->title !== null) {
             $query->where('title', 'like', '%' . $dto->title . '%');
         }
 
-        if ($dto->genre_id !== null) {
+        if ($dto->genre_id !== 0) {
             $query->where('genre_id', '=', $dto->genre_id);
         }
-        $movies = $query->paginate(self::DEFAULT_PAGINATION_LIMIT);
-        $genres = Genre::all();
 
+        $movies = $query->paginate(self::DEFAULT_PAGINATION_LIMIT);
+
+        $genres = Genre::all();
         return $this->responseService->successResponse(data: [
             'movies' => $movies,
             'genres' => $genres

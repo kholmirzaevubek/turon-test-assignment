@@ -2,18 +2,16 @@
 @section('content')
 
 <form method="GET" action="{{ route('home.') }}">
-    @csrf
     <div class="flex items-center space-x-4 mb-4">
         <select name="genre_id" class="border border-gray-300 rounded-md p-2">
             <option value="">Select Genre</option>
             @foreach ($genres as $genre)
             <option value={{$genre->id}}>{{ $genre->name }}</option>
             @endforeach
-
         </select>
 
         <input type="text" name="title" placeholder="Search by Title"
-        class="border border-gray-300 rounded-md p-2 w-full" />
+        class="border border-gray-300 rounded-md p-2 w-1000" />
 
         <button type="submit" class="text-center bg-blue-900 rounded-md text-white py-3 font-medium">search</button>
     </div>

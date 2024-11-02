@@ -15,8 +15,8 @@ final class ListMoviesDTO
     public static function fromRequest(ListMoviesFormRequest $request): self
     {
         return new self (
-            title: $request->has('title') ? $request->input('title') : null,
-            genre_id: $request->has('genre_id') ? $request->integer('genre_id') : null,
+            title: $request->input('title'),
+            genre_id: $request->integer('genre_id'),
         );
     }
 }
