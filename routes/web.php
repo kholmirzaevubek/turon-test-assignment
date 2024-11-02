@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\AuthController;
 use App\Http\Controllers\Dashboard\MovieController;
+use App\Http\Controllers\MovieController as ClientMovieController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,11 +18,16 @@ Route::group(['prefix' => 'auth', 'as' => 'auth.', 'controller' => AuthControlle
 Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', 'middleware' => 'admin'], function () {
     Route::group(['prefix' => 'movies', 'as' => 'movies.', 'controller' => MovieController::class], function () {
         Route::get('/', 'listMovies')->name('list-movies');
-        Route::get('/{movieId}', 'getSpecificMovie')->name('specific-movie');
         Route::get('/create', 'showCreateFormMovie')->name('show-create-movie');
         Route::post('/create', 'createMovie')->name('create-movie');
         Route::get('/update/{movieId}', 'showUpdateFormMovie')->name('show-update-movie');
         Route::post('/update/{movieId}', 'updateMovie')->name('update-movie');
         Route::get('/delete/{movieId}', 'deleteMovie')->name('delete-movie');
+        Route::get('/{movieId}', 'getSpecificMovie')->name('specific-movie');
     });
+});
+
+Route::group(['prefix' => '/', 'as' => 'home.', 'controller' => ClientMovieController::class], function () {
+    Route::get('/', 'listMovies');
+    Route::get('/{movieId}', 'getSpecificMovie')->name('get-specific-movie');
 });

@@ -29,7 +29,7 @@ class AuthController extends Controller
             return redirect()->route('auth.show-sign-in')->withErrors([$serviceResponse->column => $serviceResponse->message]);
         }
 
-        return redirect()->route('home')->with($serviceResponse->data);
+        return redirect()->route('home.')->with($serviceResponse->data);
     }
 
     public function logout(): RedirectResponse
