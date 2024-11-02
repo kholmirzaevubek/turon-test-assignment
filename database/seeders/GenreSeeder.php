@@ -14,10 +14,12 @@ class GenreSeeder extends Seeder
     {
         $genres = [[
             'name' => 'Action',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ], [
             'name' => 'Horror',
+            'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now(),
         ]];
