@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('genre_id')->constrained('genres')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->date('released_date');
             $table->string('trailer_link')->nullable();
             $table->string('upload_file');
