@@ -18,6 +18,7 @@ This project is built using Laravel 11 and Tailwind CSS.
 2. **Create an .env file**:
 ```bash
     cp .env.example .env
+    php artisan key:generate
 ```
 3.**Create the database**:
 ```bash
