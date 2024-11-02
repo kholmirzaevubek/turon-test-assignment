@@ -4,6 +4,7 @@ namespace App\Services\Dashboard;
 
 use App\DTOs\Dashboard\Movies\CreateMovieDTO;
 use App\DTOs\Dashboard\Movies\ListMoviesDTO;
+use App\DTOs\Dashboard\Movies\UpdateMovieDTO;
 use App\DTOs\ServiceResponseDTO;
 use App\Models\Genre;
 use App\Models\Movie;
@@ -44,6 +45,12 @@ final class MovieService
             'movies' => $movies,
             'genres' => $genres
         ]);
+    }
+    private function getUserId(): int
+    {
+        $userId = auth()->check() ? auth()->user()->id : null;
+
+        return $userId;
     }
 
     public function showCreateFormMovie(): ServiceResponseDTO
@@ -93,10 +100,53 @@ final class MovieService
         return $url;
     }
 
-    private function getUserId(): int
+    public function showUpdateFormMovie(int $movie_id):ServiceResponseDTO
     {
-        $userId = auth()->check() ? auth()->user()->id : null;
+        $movie = Movie::find($movie_id);
 
-        return $userId;
+        $genres = Genre::all();
+
+        if (! $movie) {
+            return $this->responseService->failureResponse(message: 'movie not found');
+        }
+
+        return $this->responseService->successResponse(data: [
+            'movie' => $movie,
+            'genres' => $genres
+        ]);
+    }
+
+    public function updateMovie(UpdateMovieDTO $dto, int $movie_id): ServiceResponseDTO
+    {
+
+        // Find the movie by its ID. This retrieves the existing movie from the database.
+        $movie = Movie::find($movie_id);
+
+        // Check if the movie was not found
+        if (! $movie) {
+            // Return a failed response if the movie does not exist
+            return $this->responseService->failureResponse(message: 'movie not found');
+        }
+
+        $movie->title = $dto->title;
+        $movie->description = $dto->description;
+        $movie->released_date = $dto->released_date->format('Y-m-d');
+        if ($dto->trailer_link !== null) {
+            $movie->trailer_link = $this->convertToEmbedUrl($dto->trailer_link);
+        }
+
+        // Check if a new file is uploaded in the DTO
+        if ($dto->file){
+            // Upload the new file using the upload service and update the movie's upload path
+            $uploadFile = $this->uploadService->upload($dto->file, 'movies');
+            $movie->upload_file = $uploadFile;
+        }
+        $movie->genre_id = $dto->genre_id;
+        $movie->save();
+
+        return $this->responseService->successResponse(data: [
+            'message' => "update $movie->title",
+            'movie' => $movie
+        ]);
     }
 }
