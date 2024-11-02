@@ -20,14 +20,14 @@ This project is built using Laravel 11 and Tailwind CSS.
     php artisan migrate
 ```
 
-3.**Run storage link**:
-```bash
-    php artisan stroge:link
-```
-
-4.**Run the seeders**:
+3.**Run the seeder**:
 ```bash
     php artisan db:seed
+```
+
+4.**Run storage link**:
+```bash
+    php artisan stroge:link
 ```
 
 5.**Install NPM dependencies**:
