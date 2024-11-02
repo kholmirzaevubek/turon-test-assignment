@@ -39,7 +39,7 @@ class AuthTest extends TestCase
             'password' => 'validpassword',
         ]);
 
-        $response->assertRedirect(route('home')); // Adjust this if your redirection is different
+        $response->assertRedirect(route('home.')); // Adjust this if your redirection is different
         $this->assertAuthenticatedAs($user);
     }
 
@@ -79,7 +79,7 @@ class AuthTest extends TestCase
             'password' => 'adminpassword',
         ]);
 
-        $response->assertRedirect(route('home'));
+        $response->assertRedirect(route('home.'));
         $this->assertAuthenticatedAs($admin);
     }
 }

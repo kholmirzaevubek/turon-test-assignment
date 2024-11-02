@@ -22,12 +22,12 @@ class MovieController extends Controller
         return view('listmovie', $serviceResponse->data);
     }
 
-    public function getSpecificMovie(Request $request): View
+    public function getSpecificMovie(Request $request)
     {
         $serviceResponse = $this->movieService->getSpecificMovie(intval($request->route('movieId')));
 
         if ($serviceResponse->error) {
-            return redirect()->route('home')->withErrors(['message' => $serviceResponse->message]);
+            return redirect()->route('home.')->withErrors(['message' => $serviceResponse->message]);
         }
 
         return view('specificmovie', $serviceResponse->data);

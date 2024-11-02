@@ -42,7 +42,7 @@ class MovieController extends Controller
         return redirect()->route('dashboard.movies.list-movies')->with($serviceResponse->data);
     }
 
-    public function showUpdateFormMovie(Request $request): View
+    public function showUpdateFormMovie(Request $request)
     {
         $serviceResponse = $this->movieService->showUpdateFormMovie(intval($request->route('movieId')));
 

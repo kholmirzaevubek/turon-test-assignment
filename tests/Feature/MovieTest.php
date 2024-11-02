@@ -23,14 +23,14 @@ class MovieTest extends TestCase
         parent::setUp();
         Role::firstOrCreate(['id' => RoleEnums::ADMIN->value], ['name' => 'admin']);
 
-        // Foydalanuvchi yaratish
+        // create user
         $this->user = User::factory()->create([
             'username' => 'testuser',
             'password' => Hash::make('validpassword'),
             'role_id' => RoleEnums::ADMIN->value,
         ]);
 
-        // Janr yaratish
+        // create genre
         $this->genre = Genre::firstOrCreate(['name' => 'Action'], ['user_id' => $this->user->id]);
 
         $this->actingAs($this->user);
@@ -51,9 +51,9 @@ class MovieTest extends TestCase
         $movieData = [
             'title' => 'Test Movie',
             'description' => 'This is a test description',
-            'user_id' => $this->user->id, // To'g'ri foydalanuvchi ID si
-            'released_date' => '2022-11-22', // Formatni o'zgartiring
-            'genre_id' => $this->genre->id, // To'g'ri janr ID si
+            'user_id' => $this->user->id, // user id
+            'released_date' => '2022-11-22',
+            'genre_id' => $this->genre->id, // genre id
             'upload_file' => UploadedFile::fake()->image('testfile.jpg'),
         ];
 
@@ -121,7 +121,7 @@ class MovieTest extends TestCase
 
         $movie = Movie::create($movieData);
 
-        $response = $this->get(route('dashboard.movies.delete-movie', $movie->id)); // `delete` methodidan foydalaning
+        $response = $this->get(route('dashboard.movies.delete-movie', $movie->id)); //delete method
         $response->assertRedirect(route('dashboard.movies.list-movies'));
         $this->assertDatabaseMissing('movies', ['id' => $movie->id]);
     }

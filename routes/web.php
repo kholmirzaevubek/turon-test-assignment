@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\AuthController;
+use App\Http\Controllers\Dashboard\GenreController;
 use App\Http\Controllers\Dashboard\MovieController;
 use App\Http\Controllers\MovieController as ClientMovieController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,15 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', 'middleware' => 'ad
         Route::post('/update/{movieId}', 'updateMovie')->name('update-movie');
         Route::get('/delete/{movieId}', 'deleteMovie')->name('delete-movie');
         Route::get('/{movieId}', 'getSpecificMovie')->name('specific-movie');
+    });
+
+    Route::group(['prefix' => 'genres', 'as' => 'genres.', 'controller' => GenreController::class], function () {
+        Route::get('/', 'listGenres')->name('list-genres');
+        Route::get('/create', 'showCreateGenre')->name('show-create-genre');
+        Route::post('/create', 'createGenre')->name('create-genre');
+        Route::get('/update/{genreId}', 'showUpdateGenre')->name('show-update-genre');
+        Route::post('/update/{genreId}', 'updateGenre')->name('update-genre');
+        Route::get('/delete/{genreId}', 'deleteGenre')->name('delete-genre');
     });
 });
 

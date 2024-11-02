@@ -17,7 +17,7 @@
                     </div>
 
                     <nav class="mt-10">
-                        <a class="flex items-center mt-4 py-2 px-6 bg-gray-700 bg-opacity-25 text-gray-100" href="/">
+                        <a class="flex items-center mt-4 py-2 px-6 bg-gray-700 bg-opacity-25 text-gray-100" href="{{ route('dashboard.movies.list-movies') }}">
                             <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                  stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -28,43 +28,23 @@
 
                             <span class="mx-3">Movies</span>
                         </a>
-
-                        <a class="flex items-center mt-4 py-2 px-6 bg-gray-700 bg-opacity-25 text-gray-100" href="{{ route('dashboard.genres.list-genres') }}">
-                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                 stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
-                            </svg>
-
-                            <span class="mx-3">Genres</span>
-                        </a>
                     </nav>
                 </div>
 
                 <div class="flex-1 flex flex-col overflow-hidden">
 
                     <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-                        <form method="GET" action="{{ route('dashboard.movies.list-movies') }}">
-                            <div class="flex items-center space-x-4 mb-4">
-                                <select name="genre_id" class="border border-gray-300 rounded-md p-2">
-                                <option value="">Select Genre</option>
-                                @foreach ($genres as $genre)
-                                    <option value={{$genre->id}}>{{ $genre->name }}</option>
-                                @endforeach
 
-                            </select>
-
-                            <input type="text" name="title" placeholder="Search by Title"
-                                   class="border border-gray-300 rounded-md p-2 w-full" />
-
-                               <button type="submit" class="text-center bg-blue-900 rounded-md text-white py-3 font-medium">search</button>
-                            </div>
-                    </form>
                         <div class="container mx-auto px-6 py-8">
-                            <h3 class="text-gray-700 text-3xl font-medium">Movies</h3>
-                            <a href="{{ route('dashboard.movies.create-movie') }}">add movies</a>
+                            <form method="GET" action="{{ route('dashboard.movies.list-movies') }}">
+                                <input type="text" name="name" placeholder="Search by Title"
+                                       class="border border-gray-300 rounded-md p-2 w-540" />
+
+                                   <button type="submit" class="text-center bg-blue-900 rounded-md text-white py-3 font-medium">search</button>
+                                </div>
+                        </form>
+                            <h3 class="text-gray-700 text-3xl font-medium">Genres</h3>
+                            <a href="{{ route('dashboard.genres.create-genre') }}">add genre</a>
 
                             <div class="flex flex-col mt-8">
                                 <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -79,26 +59,23 @@
                                             </tr>
                                             </thead>
                                             <tbody class="bg-white">
-                                                @foreach ($movies as $movie)
+                                                @foreach ($genres as $genre)
 
                                                 <tr>
                                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                                        <img src="{{ Storage::url($movie->upload_file) }}"  width="75" height="75">
 
-                                                        <div class="text-sm leading-5 text-dark-900">{{ $movie->title }}</div>
+                                                        <div class="text-sm leading-5 text-dark-900">{{ $genre->name }}</div>
                                                     </td>
 
                                                     <td class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                                                        <a href="{{ route('dashboard.movies.specific-movie', $movie->id) }}" class="text-indigo-600 hover:text-red-900">View</a>
-                                                        <a href="{{ route('dashboard.movies.update-movie', $movie->id) }}" class="text-yellow-600 hover:text-indigo-900">Update</a>
-                                                        <a href="{{ route('dashboard.movies.delete-movie', $movie->id) }}" class="text-red-600 hover:text-red-900">Delete</a>
+                                                        <a href="{{ route('dashboard.genres.update-genre', $genre->id) }}" class="text-yellow-600 hover:text-indigo-900">Update</a>
+                                                        <a href="{{ route('dashboard.genres.delete-genre' , $genre->id) }}" class="text-red-600 hover:text-red-900">Delete</a>
                                                     </td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
                                     </div>
-                                    {{$movies->links('pagination::tailwind')}}
                                 </div>
                             </div>
                         </div>

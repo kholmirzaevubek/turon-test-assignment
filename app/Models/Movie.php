@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Movie extends Model
 {
     protected $fillable = [
+        'title',
         'user_id',
         'description',
         'genre_id',
